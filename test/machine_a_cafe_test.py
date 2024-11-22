@@ -1,15 +1,16 @@
 import unittest
 
+from machine_a_cafe import MachineACafé
+from utilities.brewer_surveillant_les_appels import BrewerSurveillantLesAppels
+from utilities.lecteur_cb_pour_les_tests import LecteurCbPourLesTests
+
 
 class MyTestCase(unittest.TestCase):
-    def test_something(self):
-        self.assertEqual(True, True)  # add assertion here
-
     def test_cas_nominal(self):
         # ETANT DONNE une machine a café
         lecteur_cb = LecteurCbPourLesTests()
         brewer = BrewerSurveillantLesAppels()
-        machine_a_cafe = MachineACafé()
+        MachineACafé(brewer)
 
         # QUAND une carte est détectée
         lecteur_cb.simuler_carte_détectée()

@@ -3,7 +3,7 @@ import unittest
 from hardware.creditcard import CreditCardInterface, CardHandleInterface
 
 
-class LecteurCbPourLesTests(CreditCardInterface):
+class LecteurCbFake(CreditCardInterface):
     def __init__(self):
         self.__callback = None
 

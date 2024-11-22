@@ -1,16 +1,20 @@
 import unittest
 
 from machine_a_cafe import MachineACafé
-from utilities.brewer_surveillant_les_appels import BrewerSurveillantLesAppels
-from utilities.lecteur_cb_pour_les_tests import LecteurCbPourLesTests
+from utilities.brewer_surveillant_les_appels import BrewerSpy
+from utilities.lecteur_cb_pour_les_tests import LecteurCbFake
+from utilities.machine_a_cafe_builder import MachineACaféBuilder
 
 
 class MyTestCase(unittest.TestCase):
     def test_cas_nominal(self):
         # ETANT DONNE une machine a café
-        lecteur_cb = LecteurCbPourLesTests()
-        brewer = BrewerSurveillantLesAppels()
-        MachineACafé(brewer, lecteur_cb)
+        lecteur_cb = LecteurCbFake()
+        brewer = BrewerSpy()
+        machine_a_cafe = (MachineACaféBuilder()
+                          .ayant_pour_brewer(brewer)
+                          .ayant_pour_lecteur_cb(lecteur_cb)
+                          .build())
 
         # QUAND une carte est détectée
         lecteur_cb.simuler_carte_détectée()
@@ -20,9 +24,10 @@ class MyTestCase(unittest.TestCase):
 
     def test_sans_detection_cb(self):
         # ETANT DONNE une machine a café
-        lecteur_cb = LecteurCbPourLesTests()
-        brewer = BrewerSurveillantLesAppels()
-        MachineACafé(brewer, lecteur_cb)
+        brewer = BrewerSpy()
+        machine_a_cafe = (MachineACaféBuilder()
+                          .ayant_pour_brewer(brewer)
+                          .build())
 
         # QUAND aucune carte n'est détectée
 

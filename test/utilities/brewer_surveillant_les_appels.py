@@ -1,7 +1,7 @@
 import hardware.brewer
 
 
-class BrewerSurveillantLesAppels(hardware.brewer.BrewerInterface):
+class BrewerSpy(hardware.brewer.BrewerInterface):
     def try_pull_water(self) -> bool:
         pass
 

@@ -3,7 +3,7 @@ from hardware.creditcard import CreditCardInterface, CardHandleInterface
 
 
 class MachineACafé:
-    def __init__(self, brewer: BrewerInterface, lecteur_cb: CreditCardInterface):
+    def __init__(self, brewer: BrewerInterface, lecteur_cb: CreditCardInterface, ageDuCapitaine: int):
         lecteur_cb.register_card_detected_callback(self._credit_card_callback)
         self._brewer = brewer
 

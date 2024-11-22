@@ -10,13 +10,24 @@ class MyTestCase(unittest.TestCase):
         # ETANT DONNE une machine a café
         lecteur_cb = LecteurCbPourLesTests()
         brewer = BrewerSurveillantLesAppels()
-        MachineACafé(brewer)
+        MachineACafé(brewer, lecteur_cb)
 
         # QUAND une carte est détectée
         lecteur_cb.simuler_carte_détectée()
 
         # ALORS un café est commandé au hardware
         self.assertTrue(brewer.make_a_coffee_appelé())
+
+    def test_sans_detection_cb(self):
+        # ETANT DONNE une machine a café
+        lecteur_cb = LecteurCbPourLesTests()
+        brewer = BrewerSurveillantLesAppels()
+        MachineACafé(brewer, lecteur_cb)
+
+        # QUAND aucune carte n'est détectée
+
+        # ALORS aucun café n'est commandé au hardware
+        self.assertFalse(brewer.make_a_coffee_appelé())
 
 
 if __name__ == '__main__':

@@ -4,6 +4,8 @@ from utilities.brewer_surveillant_les_appels import BrewerSpy
 from utilities.carte_fake import CarteFake
 from utilities.lecteur_cb_pour_les_tests import LecteurCbFake
 from utilities.machine_a_cafe_builder import MachineACaféBuilder
+from utilities.brewer_spy import BrewerSpy
+
 
 
 class MyTestCase(unittest.TestCase):

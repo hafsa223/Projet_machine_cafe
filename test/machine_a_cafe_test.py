@@ -71,5 +71,23 @@ class MyTestCase(unittest.TestCase):
         # ALORS aucun café n'est commandé au hardware
         self.assertFalse(brewer.make_a_coffee_appelé())
 
+    def test_manque_d_eau(self):
+        # ETANT DONNE une machine à café sans eau
+        lecteur_cb = LecteurCbFake()
+        brewer = BrewerSpy()
+        machine_a_cafe = (MachineACaféBuilder()
+                          .ayant_pour_brewer(brewer)
+                          .ayant_pour_lecteur_cb(lecteur_cb)
+                          .build())
+
+        brewer.simulate_no_water()  # Simuler le manque d'eau
+
+        # QUAND une carte approvisionnée est détectée
+        carte = CarteFake.default()
+        lecteur_cb.simuler_carte_détectée(carte)
+
+        # ALORS aucun café n'est commandé au hardware
+        self.assertFalse(brewer.make_a_coffee_appelé())
+
 if __name__ == '__main__':
     unittest.main()

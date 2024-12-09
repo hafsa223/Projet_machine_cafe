@@ -1,6 +1,5 @@
 import unittest
 
-from machine_a_cafe import MachineACafé
 from utilities.brewer_surveillant_les_appels import BrewerSpy
 from utilities.carte_fake import CarteFake
 from utilities.lecteur_cb_pour_les_tests import LecteurCbFake
@@ -18,10 +17,14 @@ class MyTestCase(unittest.TestCase):
                           .build())
 
         # QUAND une carte approvisionnée est détectée
-        lecteur_cb.simuler_carte_détectée(CarteFake.default())
+        carte = CarteFake.default()
+        lecteur_cb.simuler_carte_détectée(carte)
 
         # ALORS un café est commandé au hardware
         self.assertTrue(brewer.make_a_coffee_appelé())
+
+        # ET le prix d'un café est débité
+        self.assertEqual(-50, carte.somme_operations_en_centimes())
 
     def test_sans_provision(self):
         # ETANT DONNE une machine a café
@@ -39,7 +42,22 @@ class MyTestCase(unittest.TestCase):
         lecteur_cb.simuler_carte_détectée(carte)
 
         # ALORS aucun café n'est commandé au hardware
-        self.assertTrue(brewer.make_a_coffee_appelé())
+        self.assertFalse(brewer.make_a_coffee_appelé())
+
+    def test_defaillance(self):
+        # ETANT DONNE une machine a café au brewer défaillant
+        lecteur_cb = LecteurCbFake()
+        machine_a_cafe = (MachineACaféBuilder()
+                          .brewer_defaillant()
+                          .ayant_pour_lecteur_cb(lecteur_cb)
+                          .build())
+
+        # QUAND une carte approvisionnée est détectée
+        carte = CarteFake.default()
+        lecteur_cb.simuler_carte_détectée(carte)
+
+        # ALORS l'argent n'est pas débité
+        self.assertEqual(0, carte.somme_operations_en_centimes())
 
     def test_sans_detection_cb(self):
         # ETANT DONNE une machine a café

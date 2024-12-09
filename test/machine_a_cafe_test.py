@@ -17,8 +17,8 @@ class MyTestCase(unittest.TestCase):
                           .ayant_pour_lecteur_cb(lecteur_cb)
                           .build())
 
-        # QUAND une carte est détectée
-        lecteur_cb.simuler_carte_détectée(None)
+        # QUAND une carte approvisionnée est détectée
+        lecteur_cb.simuler_carte_détectée(CarteFake.default())
 
         # ALORS un café est commandé au hardware
         self.assertTrue(brewer.make_a_coffee_appelé())

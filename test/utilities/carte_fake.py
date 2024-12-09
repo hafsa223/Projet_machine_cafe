@@ -10,3 +10,7 @@ class CarteFake(CardHandleInterface):
 
     def __init__(self, approvisionnee):
         self.__approvisionnee = approvisionnee
+
+    @classmethod
+    def default(cls):
+        return cls(True)

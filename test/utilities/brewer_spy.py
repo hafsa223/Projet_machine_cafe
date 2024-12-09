@@ -19,7 +19,7 @@ class BrewerSpy(BrewerInterface):
         self.__has_water = False
 
     def simulate_no_coffee(self):
-        self.__has_coffee = False
+        pass
 
     def try_pull_water(self) -> bool:
         pass

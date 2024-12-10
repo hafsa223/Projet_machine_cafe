@@ -5,6 +5,8 @@ from utilities.carte_fake import CarteFake
 from utilities.lecteur_cb_pour_les_tests import LecteurCbFake
 from utilities.machine_a_cafe_builder import MachineACaféBuilder
 from utilities.brewer_spy import BrewerSpy
+from utilities.cup_provider_spy import CupProviderSpy
+
 
 
 
@@ -108,11 +110,13 @@ class MyTestCase(unittest.TestCase):
 
         # ALORS aucun café n'est commandé au hardware
         self.assertFalse(brewer.make_a_coffee_appelé())
+
     def test_fourniture_gobelet(self):
         # ETANT DONNE une machine à café sans tasse détectée
         cup_provider = CupProviderSpy(cup_present=False)
         machine_a_cafe = (MachineACaféBuilder()
                           .ayant_pour_cup_provider(cup_provider)
+                          .avec_age_du_capitaine(50)
                           .build())
         
         # QUAND un utilisateur commande un produit
@@ -122,5 +126,7 @@ class MyTestCase(unittest.TestCase):
         # ALORS la machine fournit un gobelet
         self.assertTrue(cup_provider.provide_cup_called())
 
+
+    
 if __name__ == '__main__':
     unittest.main()

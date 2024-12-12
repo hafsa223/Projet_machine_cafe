@@ -125,6 +125,23 @@ class MyTestCase(unittest.TestCase):
 
         # ALORS la machine fournit un gobelet
         self.assertTrue(cup_provider.provide_cup_called())
+    
+    def test_aucun_gobelet_si_tasse_presente(self):
+        lecteur_cb = LecteurCbFake()
+        brewer = BrewerSpy()
+        cup_provider = CupProviderSpy()
+        machine_a_cafe = (MachineACaféBuilder()
+                        .ayant_pour_brewer(brewer)
+                        .ayant_pour_lecteur_cb(lecteur_cb)
+                        .ayant_pour_cup_provider(cup_provider)
+                        .build())
+
+        # QUAND un utilisateur commande un produit
+        cup_provider.simulate_cup_present()
+        lecteur_cb.simuler_carte_détectée(CarteFake.default())
+
+        # ALORS aucun gobelet n’est fourni
+        self.assertFalse(cup_provider.provide_cup_called())
 
 
     

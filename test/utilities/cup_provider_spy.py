@@ -13,6 +13,9 @@ class CupProviderSpy(CupProviderInterface):
 
     def provide_cup_called(self) -> bool:
         return self._provide_cup_called
+    
+    def simulate_cup_present(self):
+        self.cup_present = True
 
     def provide_stirrer(self):  
         pass

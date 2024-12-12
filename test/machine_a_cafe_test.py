@@ -129,7 +129,7 @@ class MyTestCase(unittest.TestCase):
     def test_aucun_gobelet_si_tasse_presente(self):
         lecteur_cb = LecteurCbFake()
         brewer = BrewerSpy()
-        cup_provider = CupProviderSpy()
+        cup_provider = CupProviderSpy(cup_present=True)
         machine_a_cafe = (MachineACaféBuilder()
                         .ayant_pour_brewer(brewer)
                         .ayant_pour_lecteur_cb(lecteur_cb)
